@@ -53,6 +53,19 @@ MongoClient.connect('mongodb+srv://tylerdthiel:smiler710@cluster0.msxsm.mongodb.
             .catch(error => console.error(error))
         })
 
+        app.delete('/quotes', (req, res) => {
+            quotesCollection.deleteOne(
+                { name: req.body.name },
+            )
+            .then (result => {
+                if (result.deletedCount === 0) {
+                    return res.json('No Vadar quote to delete')
+                }
+                res.json(`Deleted Vadar's quote`)
+            })
+            .catch(error => console.error(error))
+        })
+
         app.listen(3000, function() {
             console.log('listening on 3000')
         })
